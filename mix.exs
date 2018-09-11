@@ -21,7 +21,8 @@ defmodule RentApi.Mixfile do
   def application do
     [
       mod: {RentApi.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools],
+      # applications: [:timex, :timex_ecto]
     ]
   end
 
@@ -44,7 +45,10 @@ defmodule RentApi.Mixfile do
       {:espec_phoenix, "~> 0.6.10", only: :test},
       {:ex_machina, "~> 2.2", only: :test},
       {:comeonin, "~> 4.0"},
-      {:bcrypt_elixir, "~> 1.0"}
+      {:bcrypt_elixir, "~> 1.0"},
+      {:faker, "~> 0.10", only: :test},
+      {:timex, "~> 3.1"},
+      {:timex_ecto, "~> 3.0"}
     ]
   end
 

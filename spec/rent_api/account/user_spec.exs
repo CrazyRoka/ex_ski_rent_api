@@ -20,7 +20,9 @@ defmodule RentApi.Account.UserSpec do
     end
 
     it "has unique email" do
-      # DONT KNOW HOW TO TEST
+      Repo.insert(user())
+      changeset = User.changeset(user(), %{email: user().email})
+      expect(Repo.insert(changeset)) |> to(match_pattern {:error, _})
     end
   end
 end

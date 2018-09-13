@@ -55,6 +55,6 @@ defmodule RentApi.Rent.Booking do
   def by_item_owners(query, owners) do
     from booking in query,
     join: item in Item,
-    where: item.owner_id in ^owners
+    where: item.id == booking.item_id and item.owner_id in ^owners
   end
 end

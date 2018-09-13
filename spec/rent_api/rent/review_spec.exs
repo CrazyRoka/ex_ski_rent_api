@@ -5,11 +5,7 @@ defmodule RentApi.Account.ReviewSpec do
 
   context "Validation" do
     let :review do
-      build(:user_review)
-    end
-
-    it "has non empty description" do
-      expect(Review.changeset(review(), %{description: ""}).valid?) |> to(eq(false))
+      build(:review)
     end
 
     it "has only one reviewable" do

@@ -12,7 +12,8 @@
        name: Faker.Name.name(),
        password: "12345678",
        email: Faker.Internet.email(),
-       balance: 1234
+       balance: 1234,
+       city: build(:city)
      }
    end
 
@@ -38,14 +39,6 @@
      %Review{
        author: build(:user),
        description: "some comment",
-     }
-   end
-
-   def user_review_factory do
-     %Review{
-       author: build(:user),
-       description: "some comment",
-       user: build(:user)
      }
    end
 

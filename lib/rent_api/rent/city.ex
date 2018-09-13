@@ -1,10 +1,11 @@
 defmodule RentApi.Rent.City do
   use Ecto.Schema
   import Ecto.Changeset
+  alias RentApi.Account.User
 
-
-  schema "cities" do
+  schema "rent_cities" do
     field :name, :string
+    has_many :citizens, User
 
     timestamps()
   end

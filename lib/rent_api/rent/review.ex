@@ -47,9 +47,9 @@ defmodule RentApi.Rent.Review do
     bookings = Booking
                |> Booking.by_items([item_id])
                |> Booking.by_renters([author_id])
-               |> Repo.all()
+               |> Repo.aggregate(:count, :id)
 
-    if Enum.count(bookings) == 0 do
+    if bookings == 0 do
       add_error(changeset, :item, "you didn't use this item before")
     else
       changeset
@@ -61,7 +61,7 @@ defmodule RentApi.Rent.Review do
     owner_id = get_field(changeset, :user).id
     bookings = Booking |> Booking.by_item_owners([owner_id])
                |> Booking.by_renters([author_id])
-               |> Repo.all()
+               |> Repo.aggregate(:count, :id)
 
     if Enum.count(bookings) == 0 do
       add_error(changeset, :item, "you didn't use his items before")

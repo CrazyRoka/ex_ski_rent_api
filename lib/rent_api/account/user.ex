@@ -2,6 +2,7 @@ defmodule RentApi.Account.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias RentApi.Account.User
+  alias RentApi.Rent.City
 
 
   schema "account_users" do
@@ -10,6 +11,7 @@ defmodule RentApi.Account.User do
     field :name, :string
     field :password_digest, :string
     field :password, :string, virtual: true
+    belongs_to :city, City
     has_one :review, Review
 
     timestamps()

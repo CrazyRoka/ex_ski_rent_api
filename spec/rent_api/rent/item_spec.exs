@@ -23,4 +23,22 @@ defmodule RentApi.Account.ItemSpec do
       expect(Item.changeset(item(), %{name: ""}).valid?) |> to(eq(false))
     end
   end
+
+  context "Scopes" do
+    let! :city, do: insert(:city)
+    let! :item_owner, do: insert(:user, city: city())
+    let! :first_item, do: insert(:item, owner: item_owner())
+    let! :second_item, do: insert(:item)
+
+    it "filters by owner city" do
+      expect(Item |> Item.by_city([city().id]) |> Repo.all() |> Enum.map(&(&1.id)))
+      |> to(eq [first_item().id])
+    end
+
+    it "filters by users" do
+      expect(Item |> Item.by_users([item_owner().id]) |> Repo.all() |> Enum.map(&(&1.id)))
+      |> to(eq([first_item().id]))
+    end
+
+  end
 end

@@ -4,6 +4,7 @@
    alias RentApi.Rent.Item
    alias RentApi.Rent.Booking
    alias RentApi.Rent.Review
+   alias RentApi.Rent.City
    use Timex
 
    def user_factory do
@@ -37,6 +38,20 @@
      %Review{
        author: build(:user),
        description: "some comment",
+     }
+   end
+
+   def user_review_factory do
+     %Review{
+       author: build(:user),
+       description: "some comment",
+       user: build(:user)
+     }
+   end
+
+   def city_factory do
+     %City{
+       name: Faker.Address.city()
      }
    end
  end

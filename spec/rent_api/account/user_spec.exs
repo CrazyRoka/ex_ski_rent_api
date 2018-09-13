@@ -6,7 +6,7 @@ defmodule RentApi.Account.UserSpec do
 
   context "Validation" do
     let :user do
-      build(:user, name: "Toch")
+      build(:user)
     end
 
     it "has long password" do

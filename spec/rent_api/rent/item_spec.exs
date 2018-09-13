@@ -10,7 +10,7 @@ defmodule RentApi.Account.ItemSpec do
     end
 
     it "belongs to valid owner" do
-      changeset = Item.changeset(item(), %{owner: nil})
+      changeset = Item.changeset(build(:item, owner: nil), %{})
       expect(Repo.insert(changeset)) |> to(match_pattern{:error, _})
       expect(Item.changeset(item(), %{}).valid?) |> to(eq(true))
     end

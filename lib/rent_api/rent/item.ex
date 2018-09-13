@@ -1,12 +1,14 @@
 defmodule RentApi.Rent.Item do
   use Ecto.Schema
   import Ecto.Changeset
-
+  alias RentApi.Rent.ReviewsItems
+  alias RentApi.Rent.Review
 
   schema "rent_items" do
     field :daily_price_cents, :integer
     field :name, :string
     field :owner, :id
+    has_one :review, Review
 
     timestamps()
   end

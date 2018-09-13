@@ -36,7 +36,7 @@
    def review_factory do
      %Review{
        author: build(:user),
-       description: "some comment"
+       description: "some comment",
      }
    end
  end

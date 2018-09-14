@@ -1,5 +1,6 @@
 defmodule RentApi.Repo do
   use Ecto.Repo, otp_app: :rent_api
+  use Scrivener, page_size: 10
 
   @doc """
   Dynamically loads the repository url from the

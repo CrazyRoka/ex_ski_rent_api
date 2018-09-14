@@ -48,7 +48,9 @@ defmodule RentApi.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:faker, "~> 0.10", only: :test},
       {:timex, "~> 3.1"},
-      {:timex_ecto, "~> 3.0"}
+      {:timex_ecto, "~> 3.0"},
+      {:scrivener_ecto, "~> 1.0"},
+      {:poison, "~> 3.1"}
     ]
   end
 

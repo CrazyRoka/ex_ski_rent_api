@@ -1,6 +1,6 @@
-defmodule RentApi.Account.UserSpec do
+defmodule RentApi.Accounts.UserSpec do
   use ESpec.Phoenix, model: User
-  alias RentApi.Account.User
+  alias RentApi.Accounts.User
   alias RentApi.Repo
   import RentApi.Factory
 

@@ -1,19 +1,21 @@
 defmodule RentApi.Rent.Item do
   use Ecto.Schema
   import Ecto.Changeset
-  alias RentApi.Account.User
+  alias RentApi.Accounts.User
   alias RentApi.Rent.Review
   import Ecto.Query, only: [from: 2]
 
+  @derive {Poison.Encoder, only: [:name, :daily_price_cents, :owner_id, :id]}
   schema "rent_items" do
     field :daily_price_cents, :integer
     field :name, :string
     belongs_to :owner, User
-    has_one :review, Review
+    has_many :reviews, Review
     has_one :city, through: [:owner, :city]
 
     timestamps()
   end
+
 
   def changeset(items, attrs) do
     items

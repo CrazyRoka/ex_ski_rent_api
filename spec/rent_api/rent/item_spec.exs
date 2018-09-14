@@ -1,4 +1,4 @@
-defmodule RentApi.Account.ItemSpec do
+defmodule RentApi.Accounts.ItemSpec do
   use ESpec.Phoenix, model: Item
   alias RentApi.Rent.Item
   alias RentApi.Repo
@@ -39,6 +39,5 @@ defmodule RentApi.Account.ItemSpec do
       expect(Item |> Item.by_users([item_owner().id]) |> Repo.all() |> Enum.map(&(&1.id)))
       |> to(eq([first_item().id]))
     end
-
   end
 end

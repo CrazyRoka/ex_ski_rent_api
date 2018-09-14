@@ -1,4 +1,4 @@
-defmodule RentApi.Account.ReviewSpec do
+defmodule RentApi.Accounts.ReviewSpec do
   use ESpec.Phoenix, model: Review
   alias RentApi.Rent.Review
   import RentApi.Factory

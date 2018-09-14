@@ -1,6 +1,6 @@
  defmodule RentApi.Factory do
    use ExMachina.Ecto, repo: RentApi.Repo
-   alias RentApi.Account.User
+   alias RentApi.Accounts.User
    alias RentApi.Rent.Item
    alias RentApi.Rent.Booking
    alias RentApi.Rent.Review

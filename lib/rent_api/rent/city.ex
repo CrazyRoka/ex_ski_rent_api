@@ -1,7 +1,7 @@
 defmodule RentApi.Rent.City do
   use Ecto.Schema
   import Ecto.Changeset
-  alias RentApi.Account.User
+  alias RentApi.Accounts.User
 
   schema "rent_cities" do
     field :name, :string

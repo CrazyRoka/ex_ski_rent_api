@@ -1,5 +1,5 @@
-defmodule RentApi.Account do
-  alias RentApi.Account.User
+defmodule RentApi.Accounts do
+  alias RentApi.Accounts.User
   alias RentApi.Repo
 
   def create_user(params) do

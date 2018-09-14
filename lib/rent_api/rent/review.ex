@@ -1,7 +1,7 @@
 defmodule RentApi.Rent.Review do
   use Ecto.Schema
   import Ecto.Changeset
-  alias RentApi.Account.User
+  alias RentApi.Accounts.User
   alias RentApi.Rent.Item
   alias RentApi.Rent.Booking
   alias RentApi.Repo

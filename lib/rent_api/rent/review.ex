@@ -37,7 +37,7 @@ defmodule RentApi.Rent.Review do
     cond do
       get_field(changeset, :item) -> validate_item_history(changeset)
       get_field(changeset, :user) -> validate_user_history(changeset)
-      true -> add_error(changeset, :reviewable, "you must review something")
+      true -> changeset
     end
   end
 

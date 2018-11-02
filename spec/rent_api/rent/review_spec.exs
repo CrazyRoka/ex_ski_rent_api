@@ -9,7 +9,7 @@ defmodule RentApi.Rent.ReviewSpec do
     end
 
     it "has only one reviewable" do
-      changeset = Review.changeset(build(:review, user: build(:user), item: build(:item)), %{})
+      changeset = Review.changeset(build(:review, user: insert(:user), item: insert(:item)), %{author_id: review.author.id})
       expect(changeset.valid?) |> to(eq(false))
       expect(changeset.errors) |> to(have reviewable: {"can't review more than one object", []})
     end

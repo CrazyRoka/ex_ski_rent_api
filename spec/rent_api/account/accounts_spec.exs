@@ -30,5 +30,10 @@ defmodule RentApi.AccountsSpec do
     it "builds user" do
       expect(Accounts.new_user()) |> to(eq(User.changeset(%User{}, %{})))
     end
+
+    it "gets user" do
+      {:ok, user} = Repo.insert(user())
+      expect(Accounts.get_user(user.id).id) |> to(eq user.id)
+    end
   end
 end

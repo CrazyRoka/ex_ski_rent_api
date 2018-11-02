@@ -20,4 +20,8 @@ defmodule RentApi.Accounts do
   def new_user do
     User.changeset(%User{}, %{})
   end
+
+  def get_user(id) do
+    Repo.get(User, id) || %User{}
+  end
 end

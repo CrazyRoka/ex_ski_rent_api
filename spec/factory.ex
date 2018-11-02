@@ -21,7 +21,7 @@
      %Item{
        daily_price_cents: 1234,
        name: Faker.Name.first_name(),
-       owner: insert(:user)
+       owner: build(:user)
      }
    end
 
@@ -36,8 +36,12 @@
    end
 
    def review_factory do
+     item = insert(:item)
+     renter = insert(:user)
+     insert(:booking, renter: renter, item: item)
      %Review{
-       author: build(:user),
+       author: renter,
+       item: item,
        description: "some comment",
      }
    end

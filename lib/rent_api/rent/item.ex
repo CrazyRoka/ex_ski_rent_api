@@ -3,6 +3,7 @@ defmodule RentApi.Rent.Item do
   import Ecto.Changeset
   alias RentApi.Accounts.User
   alias RentApi.Rent.Review
+  alias RentApi.Rent.Booking
   import Ecto.Query, only: [from: 2]
 
   @derive {Poison.Encoder, only: [:name, :daily_price_cents, :owner_id, :id]}
@@ -11,6 +12,7 @@ defmodule RentApi.Rent.Item do
     field :name, :string
     belongs_to :owner, User
     has_many :reviews, Review
+    has_many :bookings, Booking
     has_one :city, through: [:owner, :city]
 
     timestamps()
@@ -19,8 +21,8 @@ defmodule RentApi.Rent.Item do
 
   def changeset(items, attrs) do
     items
-    |> cast(attrs, [:name, :daily_price_cents, :owner_id])
-    |> validate_required([:name, :daily_price_cents, :owner_id])
+    |> cast(attrs, [:name, :daily_price_cents])
+    |> validate_required([:name, :daily_price_cents, :owner])
     |> foreign_key_constraint(:owner)
     |> validate_number(:daily_price_cents, greater_than_or_equal_to: 0)
   end

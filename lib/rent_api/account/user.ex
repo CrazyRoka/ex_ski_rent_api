@@ -3,6 +3,9 @@ defmodule RentApi.Accounts.User do
   import Ecto.Changeset
   alias RentApi.Accounts.User
   alias RentApi.Rent.City
+  alias RentApi.Rent.Booking
+  alias RentApi.Rent.Review
+  alias RentApi.Rent.Item
 
 
   schema "account_users" do
@@ -12,7 +15,10 @@ defmodule RentApi.Accounts.User do
     field :password_digest, :string
     field :password, :string, virtual: true
     belongs_to :city, City
-    has_one :review, Review
+    has_many :reviews, Review
+    has_many :written_reviews, Review, foreign_key: :author_id
+    has_many :items, Item, foreign_key: :owner_id
+    has_many :bookings, Booking, foreign_key: :renter_id
 
     timestamps()
   end

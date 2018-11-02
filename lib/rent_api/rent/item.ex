@@ -19,8 +19,8 @@ defmodule RentApi.Rent.Item do
 
   def changeset(items, attrs) do
     items
-    |> cast(attrs, [:name, :daily_price_cents])
-    |> validate_required([:name, :daily_price_cents, :owner])
+    |> cast(attrs, [:name, :daily_price_cents, :owner_id])
+    |> validate_required([:name, :daily_price_cents, :owner_id])
     |> foreign_key_constraint(:owner)
     |> validate_number(:daily_price_cents, greater_than_or_equal_to: 0)
   end

@@ -1,4 +1,4 @@
-defmodule RentApi.Accounts.ItemSpec do
+defmodule RentApi.Rent.ItemSpec do
   use ESpec.Phoenix, model: Item
   alias RentApi.Rent.Item
   alias RentApi.Repo
@@ -12,7 +12,7 @@ defmodule RentApi.Accounts.ItemSpec do
     it "belongs to valid owner" do
       changeset = Item.changeset(build(:item, owner: nil), %{})
       expect(Repo.insert(changeset)) |> to(match_pattern{:error, _})
-      expect(Item.changeset(item(), %{}).valid?) |> to(eq(true))
+      expect(Item.changeset(item(), %{owner_id: item.owner.id}).valid?) |> to(eq(true))
     end
 
     it "has valid price" do

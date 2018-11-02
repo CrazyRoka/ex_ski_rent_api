@@ -21,7 +21,7 @@
      %Item{
        daily_price_cents: 1234,
        name: Faker.Name.first_name(),
-       owner: build(:user)
+       owner: insert(:user)
      }
    end
 

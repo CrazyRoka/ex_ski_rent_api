@@ -8,14 +8,14 @@ defmodule RentApiWeb.ItemControllerTest do
     test "Responds with paginated Items", %{conn: conn} do
       items = insert_list(13, :item) |> Enum.slice(0, 10)
       expected_output = %{items: items, total_count: 13} |> Poison.encode!()
-      responce = conn |> get(item_path(conn, :index)) |> json_response(200)
+      responce = build_conn() |> get(item_path(conn, :index)) |> json_response(200)
       assert expected_output == responce
     end
 
     test "Responds with second page Items", %{conn: conn} do
       items = insert_list(13, :item) |> Enum.slice(5, 5)
       expected_output = %{items: items, total_count: 13} |> Poison.encode!()
-      response = conn |> get(item_path(conn, :index, page_size: 5, page: 2))
+      response = build_conn() |> get(item_path(conn, :index, page_size: 5, page: 2))
                       |> json_response(200)
       assert expected_output == response
     end
@@ -29,13 +29,14 @@ defmodule RentApiWeb.ItemControllerTest do
 
     test "Creates item if attributes are valid", %{conn: conn} do
       create_path = item_path(conn, :create, registration: @valid_params)
-      response = conn |> post(create_path) |> json_response(200)
+      response = build_conn() |> post(create_path) |> json_response(200)
       IO.inspect(response)
     end
 
     test "Returns an error if attributes are invalid", %{conn: conn} do
       create_path = item_path(conn, :create, item: %{@valid_params | name: ""})
-      response = conn |> post(create_path) |> json_response(200)
+      IO.inspect(create_path)
+      response = build_conn() |> post(create_path) |> json_response(200)
       IO.inspect(response)
     end
   end
@@ -44,12 +45,12 @@ defmodule RentApiWeb.ItemControllerTest do
     test "Responds with item info if the item is found", %{conn: conn} do
       item = insert(:item)
       expected_output = %{item: item} |> Poison.encode!()
-      response = conn |> get(item_path(conn, :show, item.id)) |> json_response(200)
+      response = build_conn() |> get(item_path(conn, :show, item.id)) |> json_response(200)
       assert expected_output == response
     end
 
     test "Responds with a message indicating item not found", %{conn: conn} do
-      response = conn |> get(item_path(conn, :show, -1)) |> json_response(404)
+      response = build_conn() |> get(item_path(conn, :show, -1)) |> json_response(404)
       assert response == %{"errors" => "not found"}
     end
   end
@@ -69,13 +70,15 @@ defmodule RentApiWeb.ItemControllerTest do
       name: ""
     }
 
-    test "Edits item if attributes are valid", %{conn: conn, item: item} do
-      response = conn |> patch(item_path(conn, :update, item.id, item: @valid_params)) |> json_response(200)
-      assert response == Poison.encode!(%Item{item | name: "test", daily_price_cents: 321})
+    test "Edits item if attributes are valid", %{item: item} do
+      patch_path = item_path(build_conn(), :update, item.id, item: @valid_params)
+      response = build_conn() |> patch(patch_path) |> json_response(200)
+      assert response == Poison.encode!(%{"item": %Item{item | name: "test", daily_price_cents: 321}})
     end
 
-    test "Error if attributes are invalid", %{conn: conn, item: item}  do
-      response = conn |> patch(item_path(conn, :update, item.id, item: @invalid_params)) |> json_response(422)
+    test "Error if attributes are invalid", %{item: item}  do
+      patch_path = item_path(build_conn(), :update, item.id, item: @invalid_params)
+      response = build_conn() |> patch(patch_path) |> json_response(422)
       assert response == %{errors: "Invalid params"}
     end
   end
@@ -83,14 +86,15 @@ defmodule RentApiWeb.ItemControllerTest do
   describe "delete/2" do
     test "removes item" do
       item = insert(:item)
-      response = conn |> delete(item_path(conn, :delete, item.id)) |> json_response(200)
-      assert response == %{"success" => "item deleted"}
+      response = build_conn() |> delete(item_path(conn, :delete, item.id)) |> json_response(200)
+      assert response == %{"success" => "Item deleted"}
       assert Repo.get(Item, item.id) == nil
     end
 
     test "item not found" do
-      response = conn |> delete(item_path(conn, :delete, -1)) |> json_response(404)
-      assert response == %{"error" => "item not found"}
+      delete_path = item_path(build_conn(), :delete, -1)
+      response = build_conn() |> delete(delete_path) |> json_response(404)
+      assert response == %{"error" => ["Item not found"]}
     end
   end
 end

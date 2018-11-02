@@ -8,6 +8,6 @@ defmodule RentApiWeb.Router do
   scope "/api", RentApiWeb do
     pipe_through :api
 
-    resources "/items", ItemController, only: [:index, :show, :update, :delete]
+    resources "/items", ItemController, only: [:index, :show, :update, :delete, :create]
   end
 end

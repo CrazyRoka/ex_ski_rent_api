@@ -32,11 +32,7 @@ defmodule RentApi.Accounts.User do
   end
   defp put_password_hash(changeset), do: changeset
 
-  defp validate_password(changeset = %{data: %User{password: password}}) do
-    validate_length(changeset, :password, min: 8)
-  end
-  defp validate_password(changeset = %{data: %User{password_digest: digest}}) do
-    changeset
-  end
+  defp validate_password(changeset = %{data: %User{password: password}}), do: validate_length(changeset, :password, min: 8)
+  defp validate_password(changeset = %{data: %User{password_digest: digest}}), do: changeset
   defp validate_password(changeset), do: validate_required(changeset, [:password])
 end

@@ -1,6 +1,7 @@
 defmodule RentApiWeb.ItemController do
   use RentApiWeb, :controller
   alias RentApi.Repo
+  alias RentApi.Rent
   alias RentApi.Rent.Item
 
 
@@ -17,25 +18,27 @@ defmodule RentApiWeb.ItemController do
   end
 
   def create(conn, params) do
-
+    case Rent.create_item(params) do
+      {:ok, item} -> render(conn, "show.json", item: item)
+      {:error, changeset} -> conn |> put_status(:forbidden) |> json(%{errors: changeset.errors})
+    end
   end
 
   def update(conn, %{"id" => id, "item" => item_params}) do
-    case Repo.get(Item, id) do
-      nil -> conn |> put_status(:not_found) |> json(%{errors: "not found"})
-      item ->
-        updated_item = item |> Item.changeset(item_params) |> Repo.update()
-        IO.inspect(updated_item)
-        render(conn, "show.json", item: item)
+    item = Rent.get_item(id) |> Repo.preload([:owner])
+
+    case Rent.update_item(item, item_params) do
+      {:error, changeset} -> conn |> put_status(:forbidden) |> json(%{errors: changeset.errors})
+      {:ok, item} -> render(conn, "show.json", item: item)
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    case Repo.get(Item, id) do
-      nil -> conn |> put_status(:not_found) |> json(%{error: "item not found"})
-      item ->
-        Repo.delete!(item)
-        conn |> json(%{success: "item deleted"})
+    item = Rent.get_item(id)
+
+    case item.id && Rent.delete_item(item) do
+      {:ok, item} -> conn |> json(%{success: "Item deleted"})
+      nil -> conn |> put_status(:not_found) |> json(%{error: ["Item not found"]})
     end
   end
 end

@@ -1,4 +1,4 @@
-defmodule RentApi.Accounts.BookingSpec do
+defmodule RentApi.Rent.BookingSpec do
   use ESpec.Phoenix, model: Booking
   alias RentApi.Rent.Booking
   alias RentApi.Repo

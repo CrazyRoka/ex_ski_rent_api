@@ -48,7 +48,7 @@ defmodule RentApiWeb.ItemControllerTest do
 
     test "Responds with a message indicating item not found", %{conn: conn} do
       response = build_conn() |> get(item_path(conn, :show, -1)) |> json_response(404)
-      assert response == %{"errors" => "not found"}
+      assert response == %{"errors" => ["Not found"]}
     end
   end
 
@@ -75,8 +75,8 @@ defmodule RentApiWeb.ItemControllerTest do
 
     test "Error if attributes are invalid", %{item: item}  do
       patch_path = item_path(build_conn(), :update, item.id, item: @invalid_params)
-      response = build_conn() |> patch(patch_path) |> json_response(422)
-      assert response == %{errors: "Invalid params"}
+      response = build_conn() |> patch(patch_path) |> json_response(403)
+      assert response == %{"errors" => %{"name" => ["can't be blank"]}}
     end
   end
 

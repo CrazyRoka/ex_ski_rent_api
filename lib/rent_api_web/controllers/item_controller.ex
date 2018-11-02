@@ -12,7 +12,7 @@ defmodule RentApiWeb.ItemController do
 
   def show(conn, %{"id" => id}) do
     case Repo.get(Item, id) do
-      nil -> conn |> put_status(:not_found) |> json(%{errors: "not found"})
+      nil -> conn |> put_status(:not_found) |> json(%{errors: ["Not found"]})
       item -> render(conn, "show.json", item: item)
     end
   end
@@ -20,7 +20,7 @@ defmodule RentApiWeb.ItemController do
   def create(conn, params) do
     case Rent.create_item(params) do
       {:ok, item} -> render(conn, "show.json", item: item)
-      {:error, changeset} -> conn |> put_status(:forbidden) |> json(%{errors: changeset.errors})
+      {:error, changeset} -> conn |> put_status(:forbidden) |> render("errors.json", changeset: changeset)
     end
   end
 
@@ -28,7 +28,8 @@ defmodule RentApiWeb.ItemController do
     item = Rent.get_item(id) |> Repo.preload([:owner])
 
     case Rent.update_item(item, item_params) do
-      {:error, changeset} -> conn |> put_status(:forbidden) |> json(%{errors: changeset.errors})
+      {:error, changeset} ->
+        conn |> put_status(:forbidden) |> render("errors.json", changeset: changeset)
       {:ok, item} -> render(conn, "show.json", item: item)
     end
   end

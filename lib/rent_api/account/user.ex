@@ -7,13 +7,13 @@ defmodule RentApi.Accounts.User do
   alias RentApi.Rent.Review
   alias RentApi.Rent.Item
 
-
+  @derive {Poison.Encoder, only: [:name, :email, :balance, :city_id]}
   schema "account_users" do
-    field :balance, :integer
-    field :email, :string, unique: true
     field :name, :string
-    field :password_digest, :string
+    field :email, :string, unique: true
     field :password, :string, virtual: true
+    field :password_digest, :string
+    field :balance, :integer
     belongs_to :city, City
     has_many :reviews, Review
     has_many :written_reviews, Review, foreign_key: :author_id

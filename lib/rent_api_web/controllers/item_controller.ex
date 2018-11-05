@@ -19,7 +19,7 @@ defmodule RentApiWeb.ItemController do
 
   def create(conn, params) do
     case Rent.create_item(params) do
-      {:ok, item} -> render(conn, "show.json", item: item)
+      {:ok, item} -> conn |> put_status(:created) |> render("show.json", item: item)
       {:error, changeset} -> conn |> put_status(:forbidden) |> render("errors.json", changeset: changeset)
     end
   end

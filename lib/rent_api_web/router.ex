@@ -9,5 +9,6 @@ defmodule RentApiWeb.Router do
     pipe_through :api
 
     resources "/items", ItemController, only: [:index, :show, :update, :delete, :create]
+    resources "/users", UserController, only: [:create]
   end
 end

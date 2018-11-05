@@ -29,12 +29,12 @@ defmodule RentApiWeb.ItemControllerTest do
 
     test "Creates item if attributes are valid", %{conn: conn} do
       create_path = item_path(conn, :create, registration: @valid_params)
-      response = build_conn() |> post(create_path) |> json_response(200)
+      response = build_conn() |> post(create_path) |> json_response(201)
     end
 
     test "Returns an error if attributes are invalid", %{conn: conn} do
       create_path = item_path(conn, :create, item: %{@valid_params | name: ""})
-      response = build_conn() |> post(create_path) |> json_response(200)
+      response = build_conn() |> post(create_path) |> json_response(403)
     end
   end
 

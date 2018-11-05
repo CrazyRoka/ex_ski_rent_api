@@ -1,4 +1,5 @@
 defmodule RentApiWeb.ItemView do
+  use RentApiWeb, :view
 
   def render("index.json", %{items: items, total_count: total_count}) do
     Poison.encode!(%{"items": items, "total_count": total_count})

@@ -1,4 +1,6 @@
 defmodule RentApiWeb.UserView do
+  use RentApiWeb, :view
+
   def render("show.json", %{user: user}) do
     Poison.encode!(%{"user": user})
   end

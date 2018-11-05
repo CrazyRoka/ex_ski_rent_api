@@ -26,7 +26,7 @@ defmodule RentApi.Rent do
   end
 
   def get_item(id) do
-    Repo.get(Item, id) || %Item{}
+    Repo.get(Item, id)
   end
 
   def create_city(params) do
@@ -49,7 +49,7 @@ defmodule RentApi.Rent do
   end
 
   def get_city(id) do
-    Repo.get(City, id) || %City{}
+    Repo.get(City, id)
   end
 
   def create_review(params, author, reviewable) do
@@ -76,7 +76,7 @@ defmodule RentApi.Rent do
   end
 
   def get_review(id) do
-    Repo.get(Review, id) || %Review{}
+    Repo.get(Review, id)
   end
 
   def create_booking(params, renter, item) do
@@ -102,6 +102,6 @@ defmodule RentApi.Rent do
   end
 
   def get_booking(id) do
-    Repo.get(Booking, id) || %Booking{}
+    Repo.get(Booking, id)
   end
 end

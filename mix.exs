@@ -50,7 +50,8 @@ defmodule RentApi.Mixfile do
       {:timex, "~> 3.1"},
       {:timex_ecto, "~> 3.0"},
       {:scrivener_ecto, "~> 1.0"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:guardian, "~> 1.0"}
     ]
   end
 

@@ -22,6 +22,6 @@ defmodule RentApi.Accounts do
   end
 
   def get_user(id) do
-    Repo.get(User, id) || %User{}
+    Repo.get(User, id)
   end
 end

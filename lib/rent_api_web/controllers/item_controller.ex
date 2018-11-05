@@ -37,7 +37,7 @@ defmodule RentApiWeb.ItemController do
   def delete(conn, %{"id" => id}) do
     item = Rent.get_item(id)
 
-    case item.id && Rent.delete_item(item) do
+    case item && Rent.delete_item(item) do
       {:ok, item} -> conn |> json(%{success: "Item deleted"})
       nil -> conn |> put_status(:not_found) |> json(%{error: ["Item not found"]})
     end

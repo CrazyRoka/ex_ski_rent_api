@@ -44,3 +44,7 @@ config :rent_api, RentApi.Repo,
   database: "rent_api_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :rent_api, RentApi.Auth.Guardian,
+  issuer: "rent_api",
+  secret_key: "l9CQLAsLqpevqsWkXJd4lrcT+3c8nWCJCUtP3J+3LJ0I3sqHJShCBBXihHRue4CT"
